@@ -1,6 +1,7 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Jogador {
@@ -9,47 +10,68 @@ public class Jogador {
 
     public String nome;
 
+
+
     public Jogador(String nome) {
         this.cartas = new ArrayList<>();
         this.nome = nome;
     }
 
+
     public Carta jogada(Carta cartaNaMesa){
-        //PRIMEIRA MÃO
-    if (cartas.get(0).valor > cartaNaMesa.valor ){
-        return cartas.get(0);
+        return jogar(cartaNaMesa);
 
-    } else if (cartas.get(0).valor < cartaNaMesa.valor+1 && cartas.get(1).valor > cartas.get(3).valor) {
-        return cartas.get(1);
+    };
 
-    } else if (cartas.get(0).valor < cartas.get(3).valor && cartas.get(1).valor < cartas.get(3).valor) {
-        return cartas.get(2);
+    private Carta jogar(Carta cartaNaMesa){
+        if (cartas.size() == 3){
+            if (cartaNaMesa == null) {
+                Carta cartaAlta = cartas.stream()
+                        .max(Comparator.comparingInt((c1) -> c1.valor))
+                        .get();
+                if(cartaAlta.valor >= 130 && cartaAlta.valor <= 130000){
+                    cartaNaMesa = cartaAlta;
+                    return cartaNaMesa;
+                }
+            }else{
+                Carta caraSecundaria = cartas.stream()
+                        .max(Comparator.comparingInt((c1) -> c1.numero))
+                        .get();
+                cartaNaMesa = caraSecundaria;
+                return cartaNaMesa;
+            }
 
-        //SEGUNDA MÃO
-    } else if (cartas.get(1).valor == cartaNaMesa.valor+1) {
-        return cartas.get(1);
+        } if(cartas.size() == 2){
+            Carta cartaAlta = cartas.stream()
+                    .max(Comparator.comparingInt((c1) -> c1.valor))
+                    .get();
+            if(cartaAlta.valor >= 130 && cartaAlta.valor <= 130000){
+                return cartaAlta;
+            }else{
+                Carta caraSecundaria = cartas.stream()
+                        .max(Comparator.comparingInt((c1) -> c1.numero))
+                        .get();
+                return caraSecundaria;
+            }
+        }   if(cartas.size() == 1) {
+            Carta cartaAlta = cartas.stream()
+                    .max(Comparator.comparingInt((c1) -> c1.valor))
+                    .get();
+                if(cartaAlta.valor >= 130 && cartaAlta.valor <= 130000){
+                    return cartaAlta;
+                }else{
+                    Carta caraSecundaria = cartas.stream()
+                            .max(Comparator.comparingInt((c1) -> c1.numero))
+                            .get();
+                    return caraSecundaria;
+                }}
+        return cartaNaMesa;
+    };
 
-    } else if (cartas.get(1).valor < cartaNaMesa.valor+1 && cartas.get(0).valor > cartas.get(4).valor) {
-        return cartas.get(0);
+public void exibeCartas(){
+    cartas.forEach(c -> {
+        System.out.print(c + " ");
+    });
+    System.out.println();
+}};
 
-    } else if (cartas.get(1).valor < cartaNaMesa.valor+1 && cartas.get(1).valor < cartas.get(4).valor && cartas.get(0).numero < cartas.get(4).valor) {
-        return cartas.get(2);
-
-        //TERCEIRA MÃO
-    }else if (cartas.get(2).valor == cartaNaMesa.valor+1) {
-        return cartas.get(2);
-
-    }else if (cartas.get(2).valor< cartaNaMesa.valor+1 && cartas.get(0).valor > cartas.get(5).valor){
-        return  cartas.get(0);
-    }else {
-        return cartas.get(1);
-        }
-    }
-
-    public void exibeCartas(){
-        cartas.forEach(c -> {
-            System.out.print(c + " ");
-        });
-        System.out.println();
-    }
-}

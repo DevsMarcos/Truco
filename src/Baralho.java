@@ -30,7 +30,7 @@ public class Baralho {
                 new Carta(7, COPAS,7),
                 new Carta(8, COPAS,8),
                 new Carta(9, COPAS,9),
-                new Carta(10, COPAS,0),
+                new Carta(10, COPAS,10),
                 new Carta(1, ESPADAS,11),
                 new Carta(2, ESPADAS,12),
                 new Carta(3, ESPADAS,13),
