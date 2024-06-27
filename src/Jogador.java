@@ -10,11 +10,14 @@ public class Jogador {
 
     public String nome;
 
+    public LogicaRodadas logicaRodadas;
+
 
 
     public Jogador(String nome) {
         this.cartas = new ArrayList<>();
         this.nome = nome;
+        this.logicaRodadas = new LogicaRodadas();
     }
 
 
@@ -24,48 +27,8 @@ public class Jogador {
     };
 
     private Carta jogar(Carta cartaNaMesa){
-        if (cartas.size() == 3){
-            if (cartaNaMesa == null) {
-                Carta cartaAlta = cartas.stream()
-                        .max(Comparator.comparingInt((c1) -> c1.valor))
-                        .get();
-                if(cartaAlta.valor >= 130 && cartaAlta.valor <= 130000){
-                    cartaNaMesa = cartaAlta;
-                    return cartaNaMesa;
-                }
-            }else{
-                Carta caraSecundaria = cartas.stream()
-                        .max(Comparator.comparingInt((c1) -> c1.numero))
-                        .get();
-                cartaNaMesa = caraSecundaria;
-                return cartaNaMesa;
-            }
+       return logicaRodadas.jogar(cartaNaMesa, this.cartas);
 
-        } if(cartas.size() == 2){
-            Carta cartaAlta = cartas.stream()
-                    .max(Comparator.comparingInt((c1) -> c1.valor))
-                    .get();
-            if(cartaAlta.valor >= 130 && cartaAlta.valor <= 130000){
-                return cartaAlta;
-            }else{
-                Carta caraSecundaria = cartas.stream()
-                        .max(Comparator.comparingInt((c1) -> c1.numero))
-                        .get();
-                return caraSecundaria;
-            }
-        }   if(cartas.size() == 1) {
-            Carta cartaAlta = cartas.stream()
-                    .max(Comparator.comparingInt((c1) -> c1.valor))
-                    .get();
-                if(cartaAlta.valor >= 130 && cartaAlta.valor <= 130000){
-                    return cartaAlta;
-                }else{
-                    Carta caraSecundaria = cartas.stream()
-                            .max(Comparator.comparingInt((c1) -> c1.numero))
-                            .get();
-                    return caraSecundaria;
-                }}
-        return cartaNaMesa;
     };
 
 public void exibeCartas(){
